@@ -1,0 +1,97 @@
+\chapter{Giới thiệu đề tài}
+
+\section{Đặt vấn đề}
+Hiện nay với sự bùng nổ của thương mại điện tử,
+việc mua bán và thanh toán trực tuyến đã trở nên phổ
+biến rộng rãi trong cộng đồng, vì vậy lượng hàng hóa
+cung và cầu mỗi ngày luôn rất lớn. Điều này rất có lợi
+cho những người tiêu dùng, bởi sẽ có rất nhiều mặt hàng
+với đủ mọi chủng loại, càng nhiều lựa chọn mua hàng thì giá cả càng rẻ,
+những người tiêu dùng thông thái sẽ có thể mua được những sản phẩm
+tốt với mức giá phải chăng. Đối với những người tiêu dùng nghi ngờ
+về hình ảnh, chất lượng của các sản phẩm trực tuyến, họ hoàn toán
+có thể đến các cửa hàng bán lẻ, nơi mà hàng hóa vẫn
+luôn dồi dào, được nhìn tận mắt, được cầm tận tay.
+
+Các cửa hàng bán lẻ là điểm cuối trong mạng lưới vận chuyển hàng hóa
+trước khi sản phẩm đến được tay người tiêu dùng. Khi hàng hóa nhiều lên
+và các phương pháp quản lý kho cũ không còn đáp ứng được thì mỗi công
+ty hay tập đoàn bán lẻ đều cần giải pháp mới để quản lý hàng hóa. 
+
+Hệ thống quản lý phân phối (Distribution Management System) là một ứng dụng
+cung cấp giải pháp cho vấn đề này. Với hệ thống quản lý phân phối,
+các công ty hay tập đoàn bán lẻ có thể nắm
+được chính xác biến động thị trường,
+hàng hóa đang ở vị trí nào trong chuỗi cung ứng, hàng tồn kho còn bao
+nhiêu hay hiệu suất làm việc của các nhân viên bán hàng, …
+
+\section{Mục tiêu và phạm vi đề tài}
+Từ sự cần thiết phải chuyển đổi phương pháp quản lý phân phối này,
+nhiều phần mềm nghiệp vụ đã được triển khai. Ở Việt Nam hiện nay, các ứng
+dụng quản lý phân phối trực tuyến phổ biến có thể kể đến như
+KiotViet, Sapo, Suno, …, các ứng dụng quản
+lý không cần trực tuyến như Adaline,
+BS Silver, Perfect Warehouse, … Điểm chung của các ứng dụng này là
+đều cung cấp các tính năng phục vụ về quản lý kho,
+nhập – xuất sản phẩm, các ứng dụng trực tuyến
+thì đưa ra nhiều giải pháp hơn bao gồm cả quản lý nhân viên, quản lý lương,
+thậm chí có cả kênh bán hàng riêng. KiotViet hay Sapo là những cái
+tên tiêu biểu khi mà sản phẩm của hai tập đoàn này khá phổ biến.
+
+Trong quá trình sử dụng thử phần mềm của KiotViet, em thấy các tính năng của
+họ đưa ra là rất tốt và khá đầy đủ cho nhiều loại sản phẩm, mặt hàng.
+Tuy nhiên, em muốn bổ sung thêm tính năng quản lý tuyến bán hàng
+thông qua bản đồ, quản lý hiệu quả làm việc của nhân viên
+bán hàng qua thông tin check-in, cải thiện giao diện cũng
+như tăng hiệu năng của ứng dụng. 
+
+Ứng dụng quản lý phân phối của em sẽ tập trung vào 7 tính năng chính,
+đó là phân quyền động, quản lý tài khoản, quản lý sản phẩm, quản lý kho,
+quản lý xuất nhập, quản lý tuyến bán hàng và quản lý nhân viên bán hàng.
+
+\section{Định hướng giải pháp}
+Go là một ngôn ngữ lập trình mới do Google phát triển,
+được sinh ra để giúp ngành công nghiệp phần mềm khai thác nền
+tảng đa lõi của bộ vi xử lý và hoạt động đa nhiệm tốt hơn.
+Vì vậy em sử dụng Go để viết back-end server nhằm tăng hiệu
+năng xử lý yêu cầu trên một thời điểm.
+
+Còn về phần giao diện, giao tiếp với người dùng (front-end) thì hiện
+nay các Framework Javascript như ReactJS, Angular hay VueJS đang
+là xu thế bởi khả năng xây dựng giao diện nhanh, bảo trì và
+mở rộng code dễ dàng. Ứng dụng của em sử dụng ReactJS, kết hợp Redux và
+Material-UI để xây dựng giao diện đảm bảo thiết kế
+chuẩn Material Design của Google. 
+
+\section{Bố cục đồ án}
+Phần còn lại của báo cáo đồ án tốt nghiệp được tổ
+chức thành các chương như sau.
+
+Chương 2 trình bày về cơ sở lý thuyết của đồ án. Trong đó bao gồm
+các công nghệ cốt lõi đã tìm hiểu để xây dựng ứng dụng, so sánh
+giữa các công nghệ được sử dụng với các công nghệ khác hiện nay.
+Bên cạnh đó là các thuật toán cơ sở được sử dụng trong xử lý logic
+cho cả phần front-end, back-end và cơ sở dữ liệu như Index,
+Role-Based Access Control, thuật toán phân cụm. 
+
+Chương 3 trình bày chi tiết về thiết kế hệ thống. Từ sự cần thiết
+của giải pháp đã nêu ở trên, em xác định ra những tính năng cần thiết
+nhất và xây dựng các ca sử dụng xung quanh những tính năng này.
+Phần này sẽ trình bày các biểu đồ ca sử dụng cho các chức năng,
+biểu đồ hoạt động thể hiện cách thức tương tác với hệ thống của
+người dùng. Cùng với đó là thiết kế cơ sở dữ liệu, xây dựng dữ liệu mẫu.
+
+Chương 4 đưa ra đóng góp chính của em trong đồ án tốt nghiệp này,
+so sánh chúng với những giải pháp hiện tại, cơ hội áp dụng trong
+tương lai và khả năng mở rộng của đóng góp này. Chương này cũng
+đưa ra những vấn đề và hướng giải quyết của những vấn đề này
+trong quá trình thực hiện đồ án. 
+
+Chương 5 minh họa các chức năng của hệ thống, mô tả quy trình
+triển khai ứng dụng lên server. Đánh giá hiệu năng hệ thống bằng
+stress test và performance test. Đưa ra các vấn đề, thách thức
+khi triển khai hệ thống với nhiều người sử dụng và với rất
+nhiều người sử dụng.
+
+Chương 6 là chương cuối cùng đưa ra kết luận, những vấn đề còn
+chưa giải quyết được và hướng phát triển của ứng dụng trong tương lai.

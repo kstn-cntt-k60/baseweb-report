@@ -1,0 +1,92 @@
+\documentclass[a4paper,12pt,3p]{report}
+
+\usepackage{graphicx}
+\usepackage[font=normalsize]{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amstext}
+\usepackage[linesnumbered,ruled]{algorithm2e}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{outlines}
+
+\usepackage[bookmarks=false]{hyperref}
+\hypersetup{colorlinks,
+	linkcolor=blue,
+	citecolor=blue,
+	urlcolor=blue}
+\usepackage{titlesec}
+\setcounter{secnumdepth}{4}
+
+%\usepackage{csquotes}
+%\usepackage[style=verbose-ibid,backend=bibtex]{biblatex}
+%\bibliography{reference}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\graphicspath{ {./images/} }
+\usepackage[X2,T1]{fontenc}
+\usepackage[utf8]{vietnam}
+\usepackage{tabu}
+
+\DeclareTextSymbolDefault{\CYREPS}{X2}
+\DeclareTextSymbolDefault{\cyreps}{X2}
+
+\DeclareUnicodeCharacter{0190}{\CYREPS}
+\DeclareUnicodeCharacter{025B}{\cyreps}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=3cm]{geometry}
+\usepackage{indentfirst}
+\usepackage{color, colortbl}
+\definecolor{Gray}{gray}{0.9}
+
+\include{thesis.preamble}
+
+\setlength{\parindent}{30pt}
+
+
+\renewcommand{\baselinestretch}{2.0}
+\begin{document}
+
+\title{\LARGE {\bf Thiết kế hệ thống quản lý phân phối \\ trong chuỗi cung ứng}\\
+ \vspace*{7mm}
+}
+
+\author{Tạ Quang Tùng}
+\submitdate{Hà Nội, 6/2020}
+
+\normallinespacing
+\maketitle
+
+\preface
+\input{abstract}
+\input{acknowledgements}
+
+\body
+% body of thesis comes here
+
+\input{chapters/introduction}
+\input{chapters/technology}
+% \input{chuong3/chuong3}
+% \input{chuong4/chuong4}
+% \input{chuong5/chuong5}
+% \input{chuong6/chuong6}
+% \input{conclusion/conclusion}
+
+\appendix
+% appendices come here
+
+\label{sect:bib}
+\bibliographystyle{plain}
+\bibliography{thesis}
+%\addcontentsline{toc}{chapter}{Bibliography}
+%\bibliographystyle{alpha}
+%\bibliography{bibliography/bibliography}
+
+\end{document}
