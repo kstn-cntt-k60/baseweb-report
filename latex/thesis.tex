@@ -13,7 +13,6 @@
 \usepackage{multicol}
 \usepackage{multirow}
 \usepackage{enumitem}
-\usepackage{outlines}
 
 \usepackage[bookmarks=false]{hyperref}
 \hypersetup{colorlinks,
@@ -29,8 +28,14 @@
 
 \titleformat{\paragraph}
 {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
-\titlespacing*{\paragraph}
-{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+% \titlespacing*{\paragraph}
+% {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\titlespacing{\paragraph}{0pt}{\parskip}{-\parskip}
+\titlespacing{\section}{0pt}{\parskip}{-\parskip}
+\titlespacing{\subsection}{0pt}{\parskip}{-\parskip}
+\titlespacing{\subsubsection}{0pt}{\parskip}{-\parskip}
+
 \graphicspath{ {./images/} }
 \usepackage[X2,T1]{fontenc}
 \usepackage[utf8]{vietnam}
