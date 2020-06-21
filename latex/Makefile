@@ -9,7 +9,9 @@ thesis.pdf: thesis.bbl 	\
 			acknowledgements.tex \
 			chapters/introduction.tex \
 			chapters/technology.tex \
-			chapters/design.tex
+			chapters/design.tex \
+			chapters/solution.tex \
+			chapters/conclusion.tex
 	pdflatex thesis.tex
 
 thesis.bbl: thesis.bib 

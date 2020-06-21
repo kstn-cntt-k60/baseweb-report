@@ -1,0 +1,56 @@
+\chapter{Kết luật}
+\section{Kết luận}
+Qua quá trình tìm hiểu và thực hiện hệ thống quản lý phân phối,
+nghiên cứu quy trình và các chức năng nghiệp vụ, thiết kế giao
+diện, cơ sở dữ liệu thì phần mềm nhóm em tạo ra đã cơ bản hoàn
+thiện, đáp ứng đủ những ca sử dụng như thiết kế. Phần giao diện
+viết bằng ReactJS theo chuẩn Single Page Application, thiết kế theo
+phong cách Material Design. 
+
+Để trở thành một dự án khả thi trong thực tế thì ứng dụng cần phải
+khắc phục nhiều hạn chế. Như đã trình bày, hiện nay KiotViet hay Sapo
+là những công ty cung cấp các ứng dụng quản lý phân phối rất lớn,
+việc cạnh tranh một chỗ đứng với sản phẩm của họ là hạn chế đầu tiên.
+Phần giao diện còn tương đối sơ sài vì chưa có nhiều thời gian chỉnh sửa,
+việc này đòi hỏi nhiều thứ như nên thiết kế trang chủ thế nào,
+thiết kế logo, vị trí đầu trang và chân trang cần những thông tin
+như thế nào, hiệu ứng trượt dọc, dropdown, … Ở các công ty thì họ có
+kỹ sư thiết kế UX/UI, một đội photoshop, một đội dựng giao diện
+và hiệu ứng, do đó đây là hạn chế thứ hai của nhóm em. Hạn chế
+tiếp theo là, dù đã sử dụng webpack để nén mã nguồn, Single Page
+để tối ưu tốc độ tải của trang web nhưng do dùng nhiều thư viện
+vẫn chưa thực sự kiểm soát được hiệu năng của front-end. Ví dụ
+như trang thegioididong.com có tốc độ tải trang vô cùng nhanh,
+vì họ có nhiều giải pháp tối ưu. Ảnh của thegioididong rất nhỏ,
+chỉ tầm 20-40kb, điều này cho thấy các ảnh được tối ưu rất kỹ,
+họ cũng không dùng bootstrap; ngoài ra trang còn áp dụng lazy load tức
+khi cuộn trang xuống mới thấy các ảnh bên dưới. Thứ hai, họ xử lý
+CSS và JS đúng cách, không phải tải bất kì file CSS nào mà bỏ toàn
+bộ CSS vào head (giúp thời gian render giảm từ 378ms xuống còn 225ms).
+Thứ ba, họ cache mọi thứ, cụ thể các tài nguyên như ảnh, CSS, JS
+được cache trong vòng 1 năm, do vậy khi load lại trang trình
+duyệt không cần tải lại ảnh, CSS hay JS này nữa. Một hạn
+chế nữa, ứng dụng chưa có giải pháp xử lý trong tình huống có nhiều
+request lên server cùng một lúc, ví dụ như có nhiều yêu cầu lên
+đơn hàng đồng thời trong khi số lượng hàng trong kho lại không đủ.
+
+Sau khi thực hiện đồ án tốt nghiệp, bản thân em nhận thấy đã có
+nhiều tiến bộ về cả kiến thức và kỹ năng. Em đã được thực hành nhiều
+công nghệ mới về web front-end, web back-end, cơ sở dữ liệu;
+biết được những công nghệ này là lợi thế lớn khi đi làm sau này.
+Học được cách xử lý tình huống khi gặp lỗi (lỗi cú pháp lập trình,
+lỗi logic, …), tỉ mỉ hơn khi thiết kế giao diện, học được cách tối ưu
+hiệu năng front-end, thuật toán phân cụm dữ liệu. Về kỹ năng thì
+em đã học được về kỹ năng làm việc nhóm khi mà mỗi người làm một
+nhiệm vụ khác nhau, quản lý code qua các branch trên GitHub;
+kỹ năng tìm kiếm tài liệu trên Google, tìm đúng từ khóa,
+đúng nội dung cần tìm; … Và hơn nữa sau khi làm đồ án, em đã có
+một sản phẩm thật, chạy được đáp ứng đủ yêu cầu về nghiệp vụ
+cho hệ thống quản lý phân phối trong chuỗi cung ứng.
+
+\section{Hướng phát triển của đồ án trong tương lai}
+Là một phần mềm mang tính thương mại nên em rất muốn có thể
+triển khai ứng dụng trong thực tế. Để làm được việc này thì trước tiên
+em cần hoàn thiện phần giao diện của mình, sau đó là chỉnh sửa lại
+các tính năng đã có cho dễ sử dụng hơn, đẹp hơn; khắc phục
+các hạn chế đã nêu ở trên; thiết kế thêm các tính năng mới.
