@@ -8,7 +8,8 @@ thesis.pdf: thesis.bbl 	\
 			abstract.tex \
 			acknowledgements.tex \
 			chapters/introduction.tex \
-			chapters/technology.tex
+			chapters/technology.tex \
+			chapters/design.tex
 	pdflatex thesis.tex
 
 thesis.bbl: thesis.bib 
