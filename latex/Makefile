@@ -9,6 +9,10 @@ thesis.pdf: thesis.bbl 	\
 			acknowledgements.tex \
 			chapters/introduction.tex \
 			chapters/technology.tex \
+			chapters/technology/front-end.tex \
+			chapters/technology/redis.tex \
+			chapters/technology/postgres.tex \
+			chapters/technology/back-end.tex \
 			chapters/design.tex \
 			chapters/solution.tex \
 			chapters/conclusion.tex

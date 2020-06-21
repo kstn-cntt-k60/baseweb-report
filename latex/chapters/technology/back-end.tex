@@ -1,0 +1,91 @@
+\subsection{Công nghệ back-end}
+\subsubsection{Giới thiệu về ngôn ngữ Go}
+Go là ngôn ngữ biên dịch kiểu tĩnh được tạo ra tại Google.
+Cú pháp của Go tương tự như của ngôn ngữ C, đồng thời cũng
+bị ảnh hưởng lớn bởi ngôn ngữ này. Ngôn ngữ Go cũng thông
+thường được gọi với tên là Golang.
+Sau đây là một số đặc điểm của ngôn ngữ Go:
+\begin{itemize}[topsep=0ex]
+\item Cú pháp và môi trường lập trình của Go có
+    tính tương đồng với các ngôn ngữ lập trình
+    kiểu động (dynamic language) như:
+    \begin{itemize}[topsep=0ex]
+    \item Rút gọi khai báo biến, không cần phải khai báo kiểu
+        thông qua cơ chế type inference.
+    \item Biên dịch nhanh.
+    \item Quản lý các gói thư viện từ xa và các
+        package có document truy cập online.
+    \end{itemize}
+
+\item Sử dụng cách tiếp cận đặc biệt với một số vấn đề:
+    \begin{itemize}[topsep=0ex]
+    \item Xây dựng sẵn trong ngôn ngữ một số cơ chế cho lập trình
+        đồng bộ như: tiến trình nhẹ (light-weight process,
+        hay còn gọi là goroutine), channel và câu lệnh select.
+    \item Toolchain mặc định khi biên dịch sinh ra file thực
+        thi sẽ không chứa phụ thuộc ngoài.
+    \end{itemize}
+
+\item Ngôn ngữ được thiết kế đủ đơn giản để lập trình
+    viên có thể dễ dàng hiểu và ghi nhớ.
+\end{itemize}
+
+\subsubsection{Goroutine, Chanel và khối lệnh Select}
+Ngôn ngữ Go được xây dựng sẵn trong ngôn ngữ những cơ chế hỗ trợ việc
+lập trình đồng bộ. Đồng bộ ở đây không chỉ là song song ở mức CPU mà
+đồng thời cả việc sử dụng Asynchronous I/O cho phép các câu lệnh như
+truy cập database hay đọc gói tin từ mạng chạy trong khi tiến
+trình vẫn được sử dụng cho công việc khác. Kỹ thuật này phổ biến
+trong các server mà sử dụng event-based.
+
+Trung tập của xây dựng chương trình đồng bộ trong Go là tiến trình
+nhẹ (light-weight process) gọi là Goroutine. Một lời gọi hàm mà
+được đặt sau từ khóa go sẽ bắt đầu hàm đó trong một Goroutine mới.
+Trong đặc tả ngôn ngữ (Language Specfication) không chỉ định Goroutine
+được cài đặt như nào nhưng với cài đặt hiện tại thì các Goroutine
+sẽ được phân bố vào một tập nhỏ các luồng ở mức hệ điều hành,
+tương tự như cơ chế phân phát tiến trình trong ngôn ngữ Erlang.
+Khi chương trình Go mới bắt đầu sẽ chứa duy nhất
+một goroutine gọi là main goroutine.
+
+Chương trình viết bằng Go sẽ thường sử dụng Channel, một cơ chế để
+gửi các thông điệp (Message) giữa các goroutine. Channel trong Go có thể
+có chứa Buffer hoặc không. Nếu không chứa Buffer thì Channel mỗi một
+thời điểm chỉ chứa tối đa một Message, các lời gọi gửi message vào
+channel tiếp theo đó sẽ bị block. Nếu chứa Buffer thì kích thước
+của buffer cũng bị giới hạn, các message được lưu trữ và truy xuất theo
+cơ chế FIFO. Khi đọc từ một channel mà channel chưa chứa message nào
+cả thì goroutine đọc từ channel đó sẽ bị block. 
+
+Channel trong Go có chứa kiểu tĩnh, nghĩa là một channel có kiểu
+là chan T sẽ chỉ có thể gửi và nhận message thuộc kiểu T.
+Go có chứa cú pháp đặc biệt để tương tác với channel:
+\begin{itemize}[topsep=0ex]
+\item \textit{x <- ch} để đọc từ channel ch vào biến x.
+\item \textit{ch <- x} để gửi message x vào channel ch.
+\end{itemize}
+Trong trường hợp tương tác với nhiều lệnh nhận hoặc gửi message với các
+channel, chương trình Go có thể sử dụng khối lệnh select để lựa chọn
+lệnh nhận/gửi đầu tiên mà kết thúc block trên các channel. Cú pháp
+của khối lệnh select trong Go tương tự với switch nhưng khác
+là mỗi một nhãn case trong khối lệnh select sẽ là một
+lệnh tương tác với channel.
+
+\subsubsection{Các công cụ tích hợp}
+Bản cài đặt bộ công cụ của Go bao gồm nhiều các công cụ
+lên quan đến xây dựng, kiểm thử và phân tích code, gồm:
+\begin{itemize}[topsep=0ex]
+\item \textbf{go build}, để xuất file nhị phân từ các file mã nguồn.
+\item \textbf{go test}, dùng để chạy các unit test và các benchmark.
+\item \textbf{go fmt}, dùng để format code.
+\item \textbf{go get}, tải xuống và cài đặt các thư viện và
+    các file thực thi đi kèm. 
+\item \textbf{go vet}, một static analyzer cho việc tìm kiếm
+    các vị trí có thể có lỗi trong code. 
+\item \textbf{go run}, một shortcut cho phép biên dịch
+    và chạy chương trình. 
+\item \textbf{go doc}, dùng để hiển thị document của thư viện. 
+\item \textbf{go mod}, dùng để quản lý module - xuất hiện từ
+    phiên bản Go 1.11. 
+\item \textbf{go generate}, dùng để gọi code generator.
+\end{itemize}

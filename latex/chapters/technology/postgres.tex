@@ -1,0 +1,128 @@
+\subsection{Công nghệ lưu trữ - PostgreSQL}
+
+\subsubsection{Tổng quan về PostgreSQL}
+\subsubsection{Tổng quan về Index}
+\subsubsection{Full Text Search trên PostgreSQL}
+\paragraph{Cơ bản về Full Text Search}
+Các toán tử tìm kiếm text trên các CSDL quan hệ đã tồn
+tại từ rất lâu như LIKE hay ILIKE. Nhưng những toán tử đó thiếu
+đi những tính chất mà cần có trong các hệ thống thông tin hiện đại như:
+\begin{itemize}[topsep=0ex]
+\item Hỗ trợ ngôn ngữ, thậm chí với cả tiếng Anh. Các toán tử
+    trên không phù hợp cho việc xử lý những từ gần giống nghĩa hoặc
+    được suy diễn, như satisfy và satisfies trong tiếng Anh. Có thể
+    dùng toán tử logic OR để tìm kiếm cả 2 nhưng phải liệt kê rất
+    nhiều trường hợp và một số từ có thể có rất nhiều từ
+    được suy diễn hoặc gần nghĩa.
+
+\item Không hỗ trợ xếp hạng (ranking) trên tập kết quả,
+    dẫn đến tìm kiếm không hiệu quả khi mà có thể có tới rất
+    nhiều document được tìm thấy trong một câu truy vấn.
+
+\item Các phép toán đó thường chậm vì không hỗ trợ đánh chỉ
+    số, mỗi một câu truy vấn phải duyệt qua toàn bộ các document.
+\end{itemize}
+
+PostgreSQL hỗ trợ tiền xử lý các document và đánh chỉ
+số để tăng tốc các câu truy vấn. Tiền xử lý document bao gồm việc:
+\begin{itemize}[topsep=0ex]
+\item Phân tích document thành các token.
+\item Chuyển các token thành các lexeme.
+\item Lưu trữ các dữ liệu sau khi tiền xử lý
+    document để tối ưu cho truy vấn.
+\end{itemize}
+
+Một document trong PostgeSQL thông thường là một cột chứa
+xâu của bảng CSDL, hoặc có thể là một 
+tổ hợp (thông qua phép ghép nối xâu) của những trường
+đó trong một bảng hay trong nhiều bảng hoặc
+có thể được truyền từ ngoài vào. 
+
+Một token là một xâu biểu diễn một từ được phân tích ra từ document.
+
+Một lexeme cũng là một xâu, tương tự như token, nhưng đã
+được chuẩn hóa (normalize) sao cho những dạng khác nhau của
+một từ trở thành giống nhau. Việc chuẩn hóa luôn luôn
+thực hiện chuyển tất cả các kí tự thành lower-case, và thông
+thường có cắt bỏ một vài các hậu tố như e hoặc es trong tiếng
+Anh. Đồng thời ở bước chuyển từ token thành càng lexeme cũng
+thông thường loại bỏ những stop word, là những từ rất phổ biến
+trở thành vô nghĩa khi tìm kiếm, PostgreSQL sử dụng Dictionary
+để thực thi bước này.
+
+Dictionary trong PostgreSQL cho phép hiệu chỉnh quá trình
+chuẩn hóa thành lexeme, bao gồm:
+\begin{itemize}[topsep=0ex]
+\item Định nghĩa các stop word được loại bỏ.
+\item Ánh xạ các từ đồng nghĩa thành một từ.
+\item Ánh xạ cụm từ thành một từ.
+\item Ánh xạ các biến thể của một từ thành dạng chuẩn.
+\end{itemize}
+
+PostgreSQL sử dụng kiểu dữ liệu tsvector để lưu trữ dữ
+liệu sau khi tiền xử lý document, đồng thời sử dụng kiểu
+tsquery để biểu diễn các câu truy vấn.
+
+Để chuyển từ một xâu sang kiểu tsvector ta sử dụng hàm
+to\_tsvector. Còn để chuyển một xâu bất kì sang một tsquery,
+ta sử dụng plainto\_tsquery. 
+
+Để thực hiện Full Text Search một tsvector với một tsquery,
+ta sử dụng toán tử @@.
+
+\paragraph{Full Text Search cho tiếng Việt}
+Để thực hiện Full Text Search với tiếng Việt,
+trong đồ án này sử dụng một hàm được định nghĩa bằng SQL như sau: 
+\begin{figure}[H]
+\centering
+\includegraphics[width=10cm]{images/unaccent.png}
+\end{figure}
+Khi đó, thay vì sử dụng trực tiếp to\_tsvector và plainto\_tsquery,
+ta sử dụng \\
+to\_tsvector(vn\_unaccent(text)) và plainto\_tsquery(vn\_unaccent(text)).
+
+\paragraph{Đánh chỉ số cho Full Text Search}
+Để sử dụng Index cho Full Text Search, trước tiên ta cần tạo
+một cột trong CSDL lưu trữ kiểu dữ liệu tsvector.
+Có hai loại Index hay được sử dụng cho Full Text Search là GIN và GiST. 
+
+\noindent Để Index sử dụng GIN, cú pháp như sau:
+\begin{lstlisting}[caption={Tạo index sử dụng GIN},captionpos=b]
+CREATE INDEX idx_textsearch ON sometable USING GIN (tsvector_column);
+\end{lstlisting}
+
+\noindent Còn nếu sử dụng GiST:
+\begin{lstlisting}[caption={Tạo index sử dụng GiST},captionpos=b]
+CREATE INDEX idx_textsearch ON sometable USING GIST (tsvector_column);
+\end{lstlisting}
+
+Khi đó toán tử @@ có thể sử dụng Index để
+tăng tốc câu truy vấn. Trong PostgreSQL, Index Full Text Search
+thông thường sử dụng GIN hơn sử dụng GiST. 
+
+Thông thường sẽ sử dụng trigger để cập nhật các trường
+tsvector trong CSDL khi chèn hoặc chỉnh sửa.
+
+\paragraph{GIN}
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{images/GIN.png}
+\caption{Cấu trúc của GIN}
+\end{figure}
+
+GIN là viết tắt của Generalized Inverted Index. GIN được thiết
+kế cho việc đánh chỉ số những giá trị tổng hợp (composite value),
+và cho phép tìm kiếm cho các phần tử xuất hiện
+trong các compostive value. 
+
+Nếu quy ước một composite value là một item, còn phần tử trong
+composite value là một key thì GIN 
+luôn luôn lưu trữ và tìm kiếm trên key chứ không phải trên item.
+Một GIN index lưu trữ tập các cặp (key, posting list) trong đó
+posting list là tập các ID của các hàng trong bảng của CSDL.
+Một ID có thể được nằm trong nhiều các posting list vì một
+item có thể có nhiều các key. Mỗi một key được lưu trữ một
+lần duy nhất, do đó nên GIN rất phù hợp trong trường hợp một
+key xuất hiện nhiều lần. posting list được lưu với thứ tự
+từ nhỏ đến lớn các ID của các hàng. Nếu posting list quá lớn
+sẽ được chuyển thành posting tree, cấu trúc tương tự như B-Tree. 
