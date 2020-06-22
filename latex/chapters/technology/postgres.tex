@@ -1,7 +1,75 @@
 \subsection{Công nghệ lưu trữ - PostgreSQL}
 
 \subsubsection{Tổng quan về PostgreSQL}
+PostgreSQL, còn được gọi là Postgres, là một hệ thống quản lý cơ sở 
+dữ liệu quan hệ miễn phí mã nguồn mở chú trọng vào tính mở rộng và 
+tính tương thích với chuẩn SQL. Ban đầu có tên là POSTGRES, có nguồn
+gốc từ cơ sở dữ liệu Ingress được phát triển tại
+
+Đại học California, Berkeley. Vào năm 1996, dự án được đổi tên thành
+PostgreSQL. PostgreSQL được viết bằng ngôn ngữ C và có thể chạy trên nhiều
+hệ điều hành như Linux, macOS, Windows, \ldots Đồng thời hỗ trợ các tính
+năng tương tự như nhiều các cơ sở dữ liệu quan hệ khác.
+Phiên bản PostgreSQL sử dụng trong đồ án này là 11.8.
+
 \subsubsection{Tổng quan về Index}
+Index trong cơ sở dữ liệu là một cấu trúc dữ liệu giúp cải thiện
+tốc độ truy vấn dữ liệu trên các bảng với đánh đổi là sử dụng thêm
+không gian lưu trữ nhằm duy trì cấu trúc dữ liệu index cũng như
+làm tăng thời gian ghi dữ liệu. Index được sử dụng để nhanh chóng
+định vị dữ liệu mà không phải tìm duyệt qua toàn bộ các hàng trong
+bảng của cơ sở dữ liệu mỗi khi bảng đó được truy cập. Index có thể
+được tạo sử dụng một hay nhiều cột trong cùng một bảng, cung cấp
+cơ chế tăng tốc quá trình tra cứu ngẫu nhiên và truy cập có thứ
+tự các bản ghi trong cơ sở dữ liệu. 
+
+Index được chia làm hai loại kiến trúc:
+Clustered Index và Non-clustered Index.
+
+Với clustered index, các hàng trong cơ sở dữ liệu được lưu trữ
+trên đĩa theo cùng thứ tự với index. Do đó mỗi bảng chỉ tồn tại
+duy nhất một clustered index. Với non-clustered index thì cấu trúc dữ
+liệu index là cấu trúc dữ liệu nằm ngoài bảng, các hàng trong bảng
+không được đảm bảo thứ tự giống như thứ tự của index. Một bảng có
+thể có rất nhiều non-clustered index. Thông thường với truy cập trên
+clustered index sẽ nhanh hơn trên non-clustered index vì dữ liệu
+sẽ không bị phân mảnh ở nhiều vị trí trong ổ cứng.
+
+\subsubsection{Index trong PostgreSQL}
+Trong PostgreSQL, clustered index không được hỗ trợ. Tuy nhiên
+PostgreSQL lại hỗ trợ nhiều kiểu index như B-Tree, Hash, GiST,
+SP-GiST, GIN và BRIN. Mỗi một kiểu index sử dụng một thuật toán
+riêng biệt để tối ưu cho nhiều loại câu truy vấn khác nhau.
+Mặc định khi sử dụng lệnh CREATE INDEX thì index B-Tree sẽ được tạo,
+index này cũng phù hợp với hầu hết các trường hợp truy vấn. 
+
+Index kiểu B-Tree có thể được xử dụng cho các câu truy vấn
+liên quan đến tìm kiếm bằng, tìm kiếm khoảng hoặc trong trường
+hợp dữ liệu được sắp xếp theo một trường nào đó. Trình lập kế hoạch
+cho các truy vấn của PostgreSQL sẽ xem xét sử dụng index B-Tree
+bất kì khi nào trường mà có index nằm trong một trong
+các phép toán so sánh như $<$ $<=$ $=$ $>=$ $>$.
+
+Các toán tử tương đương hoặc tổ hợp của chúng, như là phép toán
+BETWEEN và IN, cũng có thể sử dụng được index B-Tree.
+Ngoài ra các phép toán liên quan đến NULL như IS NULL hay
+IS NOT NULL cũng có thể được tăng tốc bằng index B-Tree.
+
+Trình tối ưu cũng có thể sử dụng index B-Tree cho các câu
+truy vấn sử dụng toán tử pattern matching như LIKE và ~
+nếu mà pattern được sử dụng bắt đầu là một xâu hằng số
+như ‘foo\%’ nhưng không phải là ‘\%bar’. 
+
+B-Tree có thể cũng được sử dụng để lấy dữ liệu được sắp
+xếp theo thứ tự của cột được index.
+
+Index kiểu Hash chỉ có thể được sử dụng trong các câu truy
+vấn sử dụng toán tử so sánh bằng. Để tạo index Hash trong PostgreSQL,
+ta sử dụng:
+\begin{lstlisting}[caption={Tạo index sử dụng Hash}, captionpos=b]
+CREATE INDEX name ON table USING HASH (column);
+\end{lstlisting}
+
 \subsubsection{Full Text Search trên PostgreSQL}
 \paragraph{Cơ bản về Full Text Search}
 Các toán tử tìm kiếm text trên các CSDL quan hệ đã tồn

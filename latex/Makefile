@@ -18,6 +18,7 @@ thesis.pdf: thesis.bbl 	\
 			chapters/technology/azure.tex \
 			chapters/design.tex \
 			chapters/solution.tex \
+			chapters/experiment.tex \
 			chapters/conclusion.tex
 	pdflatex thesis.tex
 
