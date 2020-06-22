@@ -11,41 +11,33 @@
 \def\maketitle{
   \begin{titlepage}{
     %\linespread{1.5}
-    \Large TRƯỜNG ĐẠI HỌC BÁCH KHOA HÀ NỘI \\
-    %\linebreak
-    VIỆN CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG \\
-    %\linebreak
-    *****
-    \rm
-    \vskip 0.5in
-    \includegraphics[width=0.2 \textwidth]{images/hust} 
-    \vskip 0.5in
-    \Large \bf ĐỒ ÁN TỐT NGHIỆP\par
-    \Large \center \bf \@title \par
+          {\fontsize{15}{15} \bf TRƯỜNG ĐẠI HỌC BÁCH KHOA HÀ NỘI} \\[6cm]
+    {\fontsize{25}{25} \bf ĐỒ ÁN TỐT NGHIỆP }\par
+    {\fontsize{23}{23} \center \bf \@title} \par
   }
-
   \vskip 0.3in
   \par
  % \begin{flushright}
-  {\Large \bf \@author} \\
-  {\large tung.tq154280@sis.hust.edu.vn} \\[0.5cm]
-  {\bf \large Ngành Công nghệ thông tin} \\
-  {\bf \large Lớp Kỹ sư tài năng - Công nghệ thông tin - K60} \\
-  % \vskip 0.1in
-  \vskip 1cm
-  {\large
-  \begin{tabular}{ m{6cm} m{9cm} }
-  \textbf{Giảng viên hướng dẫn:} & TS. Phạm Quang Dũng \\
-  \textbf{Bộ môn:} & Khoa học máy tính \\
-  \textbf{Viện:} & Công nghệ thông tin và truyền thông 
+  {\fontsize{14}{14} \bf \@author} \\
+  {\fontsize{13}{13} tung.tq154280@sis.hust.edu.vn} \\[0.5cm]
+  {\bf \fontsize{14}{14} Ngành Công nghệ thông tin} \\
+  {\bf \fontsize{14}{14} Lớp Kỹ sư tài năng - Công nghệ thông tin - K60} \\
+
+  \vskip 4cm
+
+  {\fontsize{13}{13}
+  \begin{tabular}{ m{5.3cm} m{6.8cm} m{3cm} }
+  \textbf{Giảng viên hướng dẫn:} & TS. Phạm Quang Dũng &
+  \rule{3cm}{0.4pt} \\[-2.5mm]
+  & & {\scriptsize Chữ ký của GVHD} \\
+  \textbf{Bộ môn:} & Khoa học máy tính & \\
+  \textbf{Viện:} & Công nghệ thông tin và truyền thông &
   \end{tabular}
   }
-%	\end{flushright}
-  \par
-  \vskip 2in
-  \par
+
+  \vskip 4cm
   
-  \@submitdate
+  {\fontsize{13}{13} \bf \@submitdate}
   \vfil
   \end{titlepage}
 }
