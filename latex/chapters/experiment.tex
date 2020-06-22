@@ -33,4 +33,145 @@ Kết quả sau khi triển khai là hệ thống có thể truy cập được
 từ địa chỉ public IP.
 
 \section{Kiểm thử hiệu năng (performance testing)}
+Dưới đây là kết quả chạy thử nghiệm với số
+lượng gần một triệu bản ghi trong bảng. Do cách mà PostgreSQL
+hoạt động, câu lệnh select count sẽ rất chậm trong bảng kích thước lớn
+do PostgreSQL phải duyệt qua toàn bộ phần tử trong bảng mới
+xác định được số lượng phần tử tương ứng. Vì vậy, trong bài kiểm
+thử hiệu năng này, em sử dụng hai cách để đếm 
+số lượng phần tử: sử dụng select count (no aggregation) và 
+sử dụng một biến đếm riêng biệt (aggregated). Đồng thời cũng chia
+các trường hợp có sử dụng hoặc không sử dụng Index.
+
+Bài kiểm thử hiệu năng này được thử nghiệm trên cả việc chạy trên máy tính
+cá nhân (máy local) và cả sau khi đã triển khai trên cloud (máy cloud).
+PostgreSQL trên máy local sử dụng Intel core i3 3217U còn máy trên
+cloud sử dụng PostgreSQL của Microsoft Azure với 2 core.
+
+\subsection{Kiểm thử hiệu năng cơ sở dữ liệu}
+\subsubsection{Truy vấn count}
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/testing/count-local.png}
+    \caption{linear scale}
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/testing/count-local-log.png}
+    \caption{log scale}
+\end{subfigure}
+\caption{Truy vấn count trên máy local}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/testing/count-cloud.png}
+    \caption{linear scale}
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/testing/count-cloud-log.png}
+    \caption{log scale}
+\end{subfigure}
+\caption{Truy vấn count trên máy cloud}
+\end{figure}
+
+Đánh giá kết quả: Có thể thấy được rằng với một triệu phần tử thì
+việc sử dụng trực tiếp select count là rất tốn kém, gấp rất nhiều lần
+so với việc sử dụng một biến đếm riêng biệt.
+
+\subsubsection{Truy vấn select}
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/testing/select-local.png}
+    \caption{linear scale}
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/testing/select-local-log.png}
+    \caption{log scale}
+\end{subfigure}
+\caption{Truy vấn select trên máy local}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/testing/select-cloud.png}
+    \caption{linear scale}
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/testing/select-cloud-log.png}
+    \caption{log scale}
+\end{subfigure}
+\caption{Truy vấn select trên máy cloud}
+\end{figure}
+
+Đánh giá kết quả: Có thể thấy được việc sử dụng index giúp câu lệnh
+select có sắp xếp được cải thiện hiệu năng hơn rất nhiều với
+bảng một triệu phần tử.
+Đồng thời việc tăng offset của lệnh select cũng làm tăng dần thời gian
+thực thi. Việc không sử dụng index có thể làm cho thời gian một câu lệnh
+select lên đến 1s.
+
+\subsection{Kiểm thử hiệu năng Rest API}
+\begin{figure}[H]
+\centering
+\includegraphics[width=10cm]{images/testing/view-local.png}
+\caption{Hiệu năng Rest API trên máy local (no aggregation)}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]
+    {images/testing/view-aggregated-local.png}
+    \caption{linear scale}
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]
+    {images/testing/view-aggregated-local-log.png}
+    \caption{log scale}
+\end{subfigure}
+\caption{Hiệu năng Rest API trên máy local (aggregated)}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=10cm]{images/testing/view-cloud.png}
+\caption{Hiệu năng Rest API trên máy cloud (no aggregation)}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]
+    {images/testing/view-aggregated-cloud.png}
+    \caption{linear scale}
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]
+    {images/testing/view-aggregated-cloud-log.png}
+    \caption{log scale}
+\end{subfigure}
+\caption{Hiệu năng Rest API trên máy cloud (aggregated)}
+\end{figure}
+
+Đánh giá kết quả: Có thể thấy ảnh hưởng của việc sử dụng
+trực tiếp lệnh select count lên tốc độ của Rest API là rất lớn.
+Tốc độ chậm của lệnh select count khiến cho Rest API không thể kết thúc
+dưới 100ms.
+
 \section{Kiểm thử sức chịu tải (stress testing)}
