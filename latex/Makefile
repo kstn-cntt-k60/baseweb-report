@@ -13,6 +13,9 @@ thesis.pdf: thesis.bbl 	\
 			chapters/technology/redis.tex \
 			chapters/technology/postgres.tex \
 			chapters/technology/back-end.tex \
+			chapters/technology/docker.tex \
+			chapters/technology/kubernetes.tex \
+			chapters/technology/azure.tex \
 			chapters/design.tex \
 			chapters/solution.tex \
 			chapters/conclusion.tex

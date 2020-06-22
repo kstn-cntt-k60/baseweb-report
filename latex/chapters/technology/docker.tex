@@ -1,0 +1,95 @@
+\subsection{Docker}
+\subsubsection{Công nghệ container}
+Công nghệ container được sinh ra có mục đích tương tự như công
+nghệ máy ảo (Virtual Machine)~\cite{dockerbook}.
+Điểm khác biệt lớn nhất là mỗi container
+sẽ không yêu cầu phải chạy một hệ điều hành đầy đủ và riêng biệt.
+Tất cả các container trên một máy chủ đều chia sẻ chung một hệ
+điều hành. Chính điểm khác biệt này làm cho container sử dụng ít tài
+nguyên CPU, RAM và bộ nhớ lưu trữ hơn VM rất nhiều dẫn đến tiết
+kiệm chi phí cho việc chạy server, vá lỗi hệ điều hành và các
+vấn đề bảo trì hệ thống khác.
+
+Công nghệ Container hiện đại được bắt đầu từ hệ điều hành Linux.
+Một số các công nghệ của nhân Linux giúp tạo nên sự phát triển của
+công nghệ container bao gồm: kernel namespace, control group, union
+filesystem. Dù cho các công nghệ này đã tồn tại từ lâu những để
+sử dụng nó thì rất phức tạp và ngoài tầm với của phần lớn các
+công ty công nghệ. Sự thay đổi bắt đầu khi Docker được tạo ra
+giúp đơn giản hóa rất nhiều quá trình tạo và quản lý các container. 
+
+Docker ban đầu được tạo nên chỉ để chạy trên môi trường Linux.
+Tuy nhiên, trong một vài năm gần đây, Microsoft đã phát triển
+công nghệ container trên hệ điều hành Windows 10 và Windows Server từ
+đó giúp việc sử dụng Docker trên Windows tương tự như trên Linux.
+Nhưng bởi vì container sẽ chia sẻ hệ điều hành với hệ điều hành
+mà Docker chạy trên (được gọi là host), từ đó dẫn đến một container
+dùng Linux sẽ không thể chạy trên Windows và ngược lại.
+
+\subsubsection{Sơ lược về Docker}
+Docker được bắt đầu phát triển bởi Docker, Inc vào năm 2013,
+bao gồm các thành phần:
+\begin{itemize}[topsep=0ex]
+\item Software: gồm một chương trình chạy ngầm (daemon) gọi là dockerd,
+    là chương trình quản lý các container và xử lý các container object.
+    Daemon dockerd lắng nghe các yêu cầu từ bên ngoài gửi đến thông qua
+    Docker Engine API. Đi kèm là một chương trình client, gọi là docker,
+    cung cấp một giao diện dòng lệnh giúp tương tác với daemon dockerd.
+
+\item Object: các Docker Object là các thực thể cấu thành lên một
+    ứng dụng chạy trên Docker. Các Docker object được chia thành ba
+    loại là image, container và service.
+    \begin{itemize}
+    \item Một Docker image là một tập các file chỉ đọc dùng làm
+        template để tạo nên các container. Các image được dùng để
+        lưu trữ và triển khai các ứng dụng.
+
+    \item Một Docker container là một môi trường được đóng gói
+        và chuẩn hóa để chạy ứng dụng.
+
+    \item Một Docker service là một thực thể dùng để chạy nhiều
+        container trên nhiều máy trong một cluster. Tập các máy chạy
+        Docker trong một cluster gọi là một Swarm.  
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Dockerfile}
+Để xây dựng các image cho việc đóng gói ứng dụng, ta có thể
+chạy container, cài đặt các file cần thiết và sử dụng lệnh
+\textbf{docker commit} để lưu container thành image. Tuy nhiên thông thường
+việc tạo image thông qua việc sử dụng Dockerfile.
+
+Dockerfile là một file văn bản có chứa những instruction(chỉ thị) để xây
+dựng một image. Trong đó có các lệnh như: chỉ định image gốc nào mà
+sẽ được xây dựng lên, chỉ định lệnh nào được chạy khi bắt đầu
+một container, chỉ định những file hay thư mục nào được sao
+chép từ host vào container, ...
+. Để xây dựng lên image bằng Dockerfile, ta sử dụng docker build.
+
+Ví dụ trong đồ án này sử dụng Dockerfile sau để
+xây dựng lên Webserver viết bằng Go:
+
+\begin{lstlisting}[caption={Xây dựng image của back-end server},captionpos=b]
+FROM golang:1.14.3-alpine3.11 as builder
+WORKDIR /go/baseweb/
+COPY . .
+RUN go build
+
+FROM alpine:3.11
+WORKDIR /go/
+COPY --from=builder /go/baseweb/baseweb .
+EXPOSE 8080
+CMD ["./baseweb"]
+\end{lstlisting}
+
+\subsubsection{Registry \& Docker Hub}
+Registry là một kho lưu trữ các image sử dụng để tải xuống image
+và tạo container từ đó. Registry có thể là một private server trong
+một cluster, hay một dịch vụ trên cloud (như Azure Container
+Registry) hay phổ biến và mặc định của Docker là Docker Hub.  
+
+Để đăng nhập vào Docker Hub bằng Docker client, ta sử dụng lệnh
+\textbf{docker login} và để đẩy image lên registry,
+ta sử dụng \textbf{docker push}.
+
+Docker Hub hỗ trợ cả public repository và private tương tự như GitHub. 

@@ -1,0 +1,58 @@
+\subsection{Kubernetes}
+\subsubsection{Sơ lược về Kubernetes}
+Kubernetes (viết tắt là K8s) là một phần mềm mã nguồn mở cho việc
+tự động hóa quá trình triển khai (deploy), mở rộng (scale) và
+quản lý các ứng dụng đã được đóng gói để chạy trên container.
+Ban đầu được thiết kế bởi Google và hiện tại được quản lý bởi
+Cloud Native Computing Foundation. K8s hoạt động với nhiều công cụ
+quản lý container, phổ biến nhất là với Docker. Rất nhiều các
+nhà cung cấp dịch vụ Cloud như AWS, Google Cloud và Azure cho phép
+các ứng dụng triển khai bằng Kubernetes có thể chạy trực tiếp
+từ dịch vụ Kubernete mà không phải tự thiết
+lập cluster sao cho phù hợp. 
+
+\subsubsection{Các object trong Kubernetes}
+Kubernetes định nghĩa một tập các khối căn bản khi hoạt động cùng
+nhau sẽ cung cấp cơ chế giúp triển khai, duy trì và mở rộng ứng
+dụng dựa trên CPU, bộ nhớ hoặc là một metric bất kì.
+Các object chính trong Kubernetes bao gồm:
+\begin{itemize}[topsep=0ex]
+\item Pod: là một tập các container mà luôn được đảm bảo sẽ chạy
+trên cùng một host và cho phép chia sẻ tài
+nguyên với nhau~\cite{kubernetes-book}.
+Pod là đơn vị cho thuật toán phân bố container trong Kubernetes.
+Mỗi pod được gán một địa chỉ IP duy nhất trong cluster. Các
+container trong cùng một pod có thể tham chiếu lẫn nhau sử dụng
+địa chỉ localhost, những các container ở khác pod sẽ không thể
+truy cập trực tiếp với nhau thông qua localhost, khi đó phải
+sử dụng địa chỉ IP mà mỗi Pod được gán. Tuy nhiên, ứng dụng
+chạy trên container nằm trong pod không nên sử dụng địa
+chỉ IP trực tiếp của Pod bởi vì địa chỉ IP của Pod là không tĩnh,
+có thể bị thay đổi khi một Pod khởi động lại.
+
+\item Replica Set: là một cơ chế với mục tiêu đảm bảo số lượng ổn
+định của các Pod trong cluster tại bất kì thời điểm nào.
+Thông thường được sử dụng để chỉ định số lượng Pod giống nhau
+sẽ được chạy trong cluster.
+
+\item Service: Một Service trong Kubernetes là cơ chế nhóm các pod
+hoạt động cùng với nhau lại, cung cấp cơ chế Load Balance theo
+round-robin cho phép container nằm trong Pod ở bên ngoài service
+có thể truy cập các Pod ở bên trong service thông qua địa
+chỉ IP của Service thay vì địa chỉ IP trực tiếp của các Pod.
+Địa chỉ IP này có thể được lấy thông qua các biến môi trường hoặc
+thông qua một server DNS trong cluster. Service mặc định là
+public ở trong cluster. Tuy nhiên nếu muốn truy cập service từ
+bên ngoài cluster ta phải thay đổi kiểu của Service thành 
+\textbf{type: LoadBalancer}.
+Khi đó Service sẽ chứa địa chỉ IP cho phép truy
+cập từ bên ngoài cluster.
+
+\item Deployment: là một cơ chế được xây dựng trên Replica Set
+cho phép thay đổi cấu hình của các Pod hoặc của Replica Set.
+Những thay đổi này được mô tả bởi người dùng bởi việc chỉ định
+cấu hình mong muốn, Deployment sẽ cập nhật các Pod và các Replica
+Set tương ứng để trạng thái hệ thống đạt được cấu hình mong muốn đó. 
+\end{itemize}
+Ngoài ra còn các object khác như ReplicationController,
+StatefulSet, Volume, Endpoint, ...
