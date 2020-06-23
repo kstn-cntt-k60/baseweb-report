@@ -175,3 +175,46 @@ Tốc độ chậm của lệnh select count khiến cho Rest API không thể k
 dưới 100ms.
 
 \section{Kiểm thử sức chịu tải (stress testing)}
+Với bài toán kiểm thử sức chịu tải, em sẽ cho đồng thời
+một số lượng luồng chạy và gửi request lên server và
+tính thời gian hoàn thành. Số lượng luồng tương ứng
+là 1, 10 và 100.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]
+    {images/testing/stress-add-inventory-item.png}
+    \caption{linear scale}
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]
+    {images/testing/stress-add-inventory-item-log.png}
+    \caption{log scale}
+\end{subfigure}
+\caption{Stress test thêm inventory item trên máy local}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]
+    {images/testing/stress-add-inventory-item-cloud.png}
+    \caption{linear scale}
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]
+    {images/testing/stress-add-inventory-item-cloud-log.png}
+    \caption{log scale}
+\end{subfigure}
+\caption{Stress test thêm inventory item trên máy cloud}
+\end{figure}
+
+Đánh giá kết quả: Khi tăng số request chạy đồng thời thì thời gian
+chạy của các request cũng tăng lên do server chỉ có thể xử lý
+đồng thời được một số lượng hữu hạn các request, các request vượt
+giới hạn dó sẽ phải đợi request trước đó hoàn thành.
