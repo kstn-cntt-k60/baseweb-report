@@ -295,138 +295,138 @@ yield takeEvery(FETCH_PERSON_LIST, fetchPersonListSaga);
 yield put(pushSuccessNotification(sequence, "Saved"));
 \end{lstlisting}
 
-\subsubsection{Material-UI}
-\paragraph{Material Design}
-Material UI là một thư viện các React Component và được 
-tích hợp thêm cả Google’s Material Design. Trước tiên, 
-chúng ta sẽ tìm hiểu về nguyên lý Material Design. 
+% \subsubsection{Material-UI}
+% \paragraph{Material Design}
+% Material UI là một thư viện các React Component và được 
+% tích hợp thêm cả Google’s Material Design. Trước tiên, 
+% chúng ta sẽ tìm hiểu về nguyên lý Material Design. 
 
-Material Design là phong cách thiết kế áp dụng chủ yếu trong thiết
-kế ứng dụng Web, ứng dụng Mobile và đã trở thành một xu hướng
-phổ biến hiện nay. Đối với những Designer thiết kế UX/UI
-(giao diện / trải nghiệm người dùng), hay các lập trình viên
-front-end thì thuật ngữ Material Design không còn xa lạ.
-Có rất nhiều ứng dụng nổi tiếng thiết kế theo phong
-cách Material Design như các ứng dụng của Google
-(Google+, Gmail, Google Maps, …), Evernote, ePay, …
+% Material Design là phong cách thiết kế áp dụng chủ yếu trong thiết
+% kế ứng dụng Web, ứng dụng Mobile và đã trở thành một xu hướng
+% phổ biến hiện nay. Đối với những Designer thiết kế UX/UI
+% (giao diện / trải nghiệm người dùng), hay các lập trình viên
+% front-end thì thuật ngữ Material Design không còn xa lạ.
+% Có rất nhiều ứng dụng nổi tiếng thiết kế theo phong
+% cách Material Design như các ứng dụng của Google
+% (Google+, Gmail, Google Maps, …), Evernote, ePay, …
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=14cm]{images/material-design.png}
-\caption{Thiết kế Material Design}
-\end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=14cm]{images/material-design.png}
+% \caption{Thiết kế Material Design}
+% \end{figure}
 
-Material Design là hình thức phát triển cao hơn của
-Flat Design (thiết kế phẳng), tuy nhiên thay vì cảm
-giác “phẳng lì” trên toàn bộ giao diện, Material Design là
-những lớp xếp chồng lên nhau, tạo chiều sâu, điểm nhấn hơn
-những thiết kế phẳng thông thường. Material Design chủ yếu tập
-trung vào những đường nét đơn giản, sử dụng những gam màu đậm,
-nổi bật, đồng thời cũng thường sử dụng những yếu tố đồ họa
-có cảm giác 3D, có hiệu ứng “nổi lên” (float) trên giao diện.
-Ngoài ra, thiết kế này còn bao gồm những chuyển động tự nhiên,
-tất cả những điều này đều nhằm mục đích mang lại cho người
-dùng trải nghiệm mới mẻ, thú vị và gần gũi hơn.
+% Material Design là hình thức phát triển cao hơn của
+% Flat Design (thiết kế phẳng), tuy nhiên thay vì cảm
+% giác “phẳng lì” trên toàn bộ giao diện, Material Design là
+% những lớp xếp chồng lên nhau, tạo chiều sâu, điểm nhấn hơn
+% những thiết kế phẳng thông thường. Material Design chủ yếu tập
+% trung vào những đường nét đơn giản, sử dụng những gam màu đậm,
+% nổi bật, đồng thời cũng thường sử dụng những yếu tố đồ họa
+% có cảm giác 3D, có hiệu ứng “nổi lên” (float) trên giao diện.
+% Ngoài ra, thiết kế này còn bao gồm những chuyển động tự nhiên,
+% tất cả những điều này đều nhằm mục đích mang lại cho người
+% dùng trải nghiệm mới mẻ, thú vị và gần gũi hơn.
 
-Material Design có 3 yếu tố căn bản:
-\begin{itemize}[topsep=0ex]
-\item Thứ nhất là không gian: 
-    Không gian dưới lớp kính màn hình thiết bị được mô phỏng
-    như một không gian 3 chiều Oxyz với chiều sâu là trục Oz.
-    Để tạo chiều sâu cho thiết kế, designer cần điều chỉnh ánh
-    sáng một cách phù hợp.
+% Material Design có 3 yếu tố căn bản:
+% \begin{itemize}[topsep=0ex]
+% \item Thứ nhất là không gian: 
+%     Không gian dưới lớp kính màn hình thiết bị được mô phỏng
+%     như một không gian 3 chiều Oxyz với chiều sâu là trục Oz.
+%     Để tạo chiều sâu cho thiết kế, designer cần điều chỉnh ánh
+%     sáng một cách phù hợp.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=12cm]{images/material-design-space.jpg}
-\caption{Material Design – Không gian}
-\end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=12cm]{images/material-design-space.jpg}
+% \caption{Material Design – Không gian}
+% \end{figure}
 
-\item Thứ hai là ánh sáng:
-    Ánh sáng là yếu tố môi trường được sử dụng nhằm thể
-    hiện tính 3 chiều của không gian. Hệ quả của ánh sáng là hiệu ứng
-    đổ bóng (Drop Shadow), sẽ phân định vị trí các lớp Material trong
-    không gian theo trục Oz. Có hai loại nguồn sáng được kết hợp
-    là nguồn sáng chiếu trực tiếp và ánh sáng môi trường. Nguồn sáng
-    trực tiếp rất quan trọng, nó giống như nguồn sáng đèn pin,
-    nó mang lại hiệu ứng đổ bóng mạnh và sắc nét. Ánh sáng môi trường
-    thì nhẹ nhàng và không rõ nguồn, tạo viền bóng nhẹ xung quanh.
-    Thông thường, Material Design kết hợp cả hai nguồn sáng, mang
-    đến hiệu ứng bóng tổng hợp, mô phỏng không gian thực tế.
+% \item Thứ hai là ánh sáng:
+%     Ánh sáng là yếu tố môi trường được sử dụng nhằm thể
+%     hiện tính 3 chiều của không gian. Hệ quả của ánh sáng là hiệu ứng
+%     đổ bóng (Drop Shadow), sẽ phân định vị trí các lớp Material trong
+%     không gian theo trục Oz. Có hai loại nguồn sáng được kết hợp
+%     là nguồn sáng chiếu trực tiếp và ánh sáng môi trường. Nguồn sáng
+%     trực tiếp rất quan trọng, nó giống như nguồn sáng đèn pin,
+%     nó mang lại hiệu ứng đổ bóng mạnh và sắc nét. Ánh sáng môi trường
+%     thì nhẹ nhàng và không rõ nguồn, tạo viền bóng nhẹ xung quanh.
+%     Thông thường, Material Design kết hợp cả hai nguồn sáng, mang
+%     đến hiệu ứng bóng tổng hợp, mô phỏng không gian thực tế.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=14cm]{images/material-design-light.jpg}
-\caption{Material Design – Ánh sáng}
-\end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=14cm]{images/material-design-light.jpg}
+% \caption{Material Design – Ánh sáng}
+% \end{figure}
 
-\item Thứ ba là material (chất liệu): Là những mặt phẳng có độ dày
-    đồng nhất 1dp (1 in $\approx$ 160 dp) và nằm song song với mặt phẳng Oxy.
-    Các mặt phẳng Material sắp xếp chồng lên nhau theo trục Oz.
-    Thông qua việc thay đổi kích thước của bóng, ta sẽ dễ dàng
-    mô tả vị trí tương đối của mỗi lớp so với lớp khác.
+% \item Thứ ba là material (chất liệu): Là những mặt phẳng có độ dày
+%     đồng nhất 1dp (1 in $\approx$ 160 dp) và nằm song song với mặt phẳng Oxy.
+%     Các mặt phẳng Material sắp xếp chồng lên nhau theo trục Oz.
+%     Thông qua việc thay đổi kích thước của bóng, ta sẽ dễ dàng
+%     mô tả vị trí tương đối của mỗi lớp so với lớp khác.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=14cm]{images/material-design-material.png}
-\caption{Material Design – Chất liệu}
-\end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=14cm]{images/material-design-material.png}
+% \caption{Material Design – Chất liệu}
+% \end{figure}
 
-\end{itemize}
+% \end{itemize}
 
-Để có một thiết kế ấn tượng với Material Design cần
-chú ý một vài hiệu ứng và chi tiết:
-\begin{itemize}[topsep=0ex]
-\item Hiệu ứng tự nhiên: ví dụ khi bạn nhấn chọn một thành phần,
-    hiệu ứng sóng trên màn hình sẽ tỏa ra tự vị trí ngón tay
-    bạn chứ không phải từ một hướng cố định.
+% Để có một thiết kế ấn tượng với Material Design cần
+% chú ý một vài hiệu ứng và chi tiết:
+% \begin{itemize}[topsep=0ex]
+% \item Hiệu ứng tự nhiên: ví dụ khi bạn nhấn chọn một thành phần,
+%     hiệu ứng sóng trên màn hình sẽ tỏa ra tự vị trí ngón tay
+%     bạn chứ không phải từ một hướng cố định.
 
-\item Hiệu ứng bề mặt: khi chuyển trang, các thành phần phải chuyển
-    động một cách tự nhiên và liên tục chứ không biến mất
+% \item Hiệu ứng bề mặt: khi chuyển trang, các thành phần phải chuyển
+%     động một cách tự nhiên và liên tục chứ không biến mất
 
-\item Có thứ tự: những thành phần ở sau sẽ xuất hiện trước,
-    thành phần lớn hơn sẽ xuất hiện trước, thành phần quan trọng
-    hơn sẽ xuất hiện trước.
+% \item Có thứ tự: những thành phần ở sau sẽ xuất hiện trước,
+%     thành phần lớn hơn sẽ xuất hiện trước, thành phần quan trọng
+%     hơn sẽ xuất hiện trước.
 
-\item Thống nhất: chuyển động của những Material phải thống nhất
-    từ cùng một hướng, tạo sự đồng đều cho tổng thiết kế.
-\end{itemize}
+% \item Thống nhất: chuyển động của những Material phải thống nhất
+%     từ cùng một hướng, tạo sự đồng đều cho tổng thiết kế.
+% \end{itemize}
 
-\paragraph{Material-UI}
-Như đã trình bày ở trên, Material UI là một thư viện các
-React component tích hợp thêm Google’s Material Design.
-Material UI cung cấp khá đầy đủ các component để có thể tạo
-ra một trang web một cách nhanh chóng hơn mà không phải ngồi
-chỉnh CSS từng chút một.
+% \paragraph{Material-UI}
+% Như đã trình bày ở trên, Material UI là một thư viện các
+% React component tích hợp thêm Google’s Material Design.
+% Material UI cung cấp khá đầy đủ các component để có thể tạo
+% ra một trang web một cách nhanh chóng hơn mà không phải ngồi
+% chỉnh CSS từng chút một.
 
-Ví dụ để tạo ra các nút bấm như hình dưới,
-ta chỉ việc sử dụng Button component mà Material UI cung cấp.
-\begin{figure}[H]
-\centering
-\includegraphics[width=14cm]{images/material-ui-button.png}
-\caption{Material UI – Button}
-\end{figure}
+% Ví dụ để tạo ra các nút bấm như hình dưới,
+% ta chỉ việc sử dụng Button component mà Material UI cung cấp.
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=14cm]{images/material-ui-button.png}
+% \caption{Material UI – Button}
+% \end{figure}
 
-Việc thêm màu sắc là vô cùng đơn giản với những thuộc
-tính được định nghĩa sẵn, màu sắc là chuẩn theo thiết
-kế Material Design. 
-Với Material UI, chúng ta còn dễ dàng chia bố cục và
-responsive trang web. Grid component sẽ chia màn hình theo
-bố cục 12 cột, 5 loại màn hình theo
-kích cỡ (xs, sm, md, lg, xl).
+% Việc thêm màu sắc là vô cùng đơn giản với những thuộc
+% tính được định nghĩa sẵn, màu sắc là chuẩn theo thiết
+% kế Material Design. 
+% Với Material UI, chúng ta còn dễ dàng chia bố cục và
+% responsive trang web. Grid component sẽ chia màn hình theo
+% bố cục 12 cột, 5 loại màn hình theo
+% kích cỡ (xs, sm, md, lg, xl).
 
-Cùng một nội dung nhưng khi được hiển thị trên các màn
-hình khác nhau sẽ hiển thị theo cách khác nhau, đảm bảo sự thuận
-tiện nhất cho người dùng.  Thuật ngữ “Responsive Design” ám
-chỉ cách thiết kế trang web hiển thị tương thích với mọi kích thước
-thiết bị, tức là bố cục trang web sẽ tự đáp ứng theo hành vi
-người dùng và môi trường hiển thị. Môi trường này chính là kích thước
-của trình duyệt, kích thước hoặc hướng xoay thiết bị. Thiết
-kế Responsive không chỉ giúp cho người dùng có một trải nghiệm thú
-vị hơn khi truy cập website, mà còn giúp chủ sở hữu dễ dàng
-quản lý các trang web của mình hơn.
+% Cùng một nội dung nhưng khi được hiển thị trên các màn
+% hình khác nhau sẽ hiển thị theo cách khác nhau, đảm bảo sự thuận
+% tiện nhất cho người dùng.  Thuật ngữ “Responsive Design” ám
+% chỉ cách thiết kế trang web hiển thị tương thích với mọi kích thước
+% thiết bị, tức là bố cục trang web sẽ tự đáp ứng theo hành vi
+% người dùng và môi trường hiển thị. Môi trường này chính là kích thước
+% của trình duyệt, kích thước hoặc hướng xoay thiết bị. Thiết
+% kế Responsive không chỉ giúp cho người dùng có một trải nghiệm thú
+% vị hơn khi truy cập website, mà còn giúp chủ sở hữu dễ dàng
+% quản lý các trang web của mình hơn.
 
-Ngoài ra Material UI cũng có sẵn kho Icon khổng lồ trên đầy
-đủ các lĩnh vực giúp chúng ta dễ dàng chọn ra icon đẹp và
-phù hợp nhất với mỗi nội dung trên trang web.
+% Ngoài ra Material UI cũng có sẵn kho Icon khổng lồ trên đầy
+% đủ các lĩnh vực giúp chúng ta dễ dàng chọn ra icon đẹp và
+% phù hợp nhất với mỗi nội dung trên trang web.
 

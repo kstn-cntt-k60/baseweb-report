@@ -18,10 +18,10 @@ Nhân viên bán hàng sau khi đăng nhập có thể xem được lịch
 trình di chuyển của mình, lên hóa đơn mua hàng, check-in.
 
 \subsection{Biểu đồ use case phân rã các chức năng của hệ thống}
-Trong phần này, em sẽ trình bày các ca sử dụng chính trong hệ
+Trong phần này, chúng tôi sẽ trình bày các ca sử dụng chính trong hệ
 thống, đưa ra biểu đồ use case và biểu đồ hoạt động chỉ cách
 thức tương tác của người dùng với giao diện hệ thống. Do nhiều thao
-tác có tính chất tương đồng nên em sẽ đưa ra các biểu
+tác có tính chất tương đồng nên chúng tôi sẽ đưa ra các biểu
 đồ hoạt động điển hình, các thao tác khác được thực hiện tương tự.
 
 \subsubsection{Quản lý người dùng và phân quyền}
@@ -55,24 +55,24 @@ Biểu đồ hoạt động cho thao tác phân quyền:
 \caption{Biểu đồ hoạt động cho thao tác phân quyền}
 \end{figure}
 
-\subsubsection{Quản lý kho}
-Biểu đồ use case cho ca sử dụng quản lý kho:
-\begin{figure}[H]
-\centering
-\includegraphics[width=14cm]{images/use-case/facility-management.jpg}
-\caption{Use case quản lý kho}
-\end{figure}
+% \subsubsection{Quản lý kho}
+% Biểu đồ use case cho ca sử dụng quản lý kho:
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=14cm]{images/use-case/facility-management.jpg}
+% \caption{Use case quản lý kho}
+% \end{figure}
 
-Người quản lý kho (Facility Manager) nắm được các thông tin
-về kho của doanh nghiệp, tập đoàn và kho của cửa hàng bán lẻ,
-có thể thêm / sửa / xóa các kho này. 
+% Người quản lý kho (Facility Manager) nắm được các thông tin
+% về kho của doanh nghiệp, tập đoàn và kho của cửa hàng bán lẻ,
+% có thể thêm / sửa / xóa các kho này. 
 
-Biểu đồ hoạt động cho thao tác thêm cửa hàng bán lẻ:
-\begin{figure}[H]
-\centering
-\includegraphics[width=8cm]{images/activity-diagram/add-customer-store.png}
-\caption{Biểu đồ hoạt động cho thao tác thêm cửa hàng bán lẻ}
-\end{figure}
+% Biểu đồ hoạt động cho thao tác thêm cửa hàng bán lẻ:
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=8cm]{images/activity-diagram/add-customer-store.png}
+% \caption{Biểu đồ hoạt động cho thao tác thêm cửa hàng bán lẻ}
+% \end{figure}
 
 \subsubsection{Quản lý nhập – xuất hàng}
 Biểu đồ use case cho ca sử dụng quản lý nhập – xuất hàng:
@@ -110,8 +110,11 @@ Biểu đồ hoạt động cho thao tác gán giá cho sản phẩm:
 
 \subsubsection{Quản lý đơn hàng}
 Biểu đồ use case cho ca sử dụng quản lý đơn hàng:
-
-(chưa có)
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{images/use-case/order.png}
+\caption{Use-case quản lý đơn hàng}
+\end{figure}
 
 Biểu đồ hoạt động cho thao tác thêm đơn hàng:
 \begin{figure}[H]
@@ -120,36 +123,36 @@ Biểu đồ hoạt động cho thao tác thêm đơn hàng:
 \caption{Biểu đồ hoạt động cho thao tác thêm đơn hàng}
 \end{figure}
 
-\subsubsection{Quản lý tuyến bán hàng}
-Biểu đồ use case cho ca sử dụng quản lý tuyến bán hàng:
-\begin{figure}[H]
-\centering
-\includegraphics[width=14cm]{images/use-case/sales-route.png}
-\caption{Use case quản lý tuyến bán hàng}
-\end{figure}
-Người quản lý tuyến bán hàng (Sales Route Manager) quản lý danh
-sách tuyến, cấu hình các tuyến, lên lịch trình tuyến cho
-nhân viên bán hàng.
+% \subsubsection{Quản lý tuyến bán hàng}
+% Biểu đồ use case cho ca sử dụng quản lý tuyến bán hàng:
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=14cm]{images/use-case/sales-route.png}
+% \caption{Use case quản lý tuyến bán hàng}
+% \end{figure}
+% Người quản lý tuyến bán hàng (Sales Route Manager) quản lý danh
+% sách tuyến, cấu hình các tuyến, lên lịch trình tuyến cho
+% nhân viên bán hàng.
 
-Biểu đồ hoạt động cho thao tác thêm tuyến bán
-hàng cho nhân viên bán hàng:
-\begin{figure}[H]
-\centering
-\includegraphics[width=6cm]{images/activity-diagram/add-schedule.png}
-\caption{Biểu đồ hoạt động cho thao tác thêm tuyến bán hàng cho
-nhân viên bán hàng}
-\end{figure}
+% Biểu đồ hoạt động cho thao tác thêm tuyến bán
+% hàng cho nhân viên bán hàng:
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=6cm]{images/activity-diagram/add-schedule.png}
+% \caption{Biểu đồ hoạt động cho thao tác thêm tuyến bán hàng cho
+% nhân viên bán hàng}
+% \end{figure}
 
-\subsubsection{Nhân viên bán hàng check-in}
-Biểu đồ use case cho ca sử dụng nhân viên bán hàng check-in:
-\begin{figure}[H]
-\centering
-\includegraphics[width=14cm]{images/use-case/salesman.jpg}
-\caption{Use-case nhân viên bán hàng check-in}
-\end{figure}
-Khi nhân viên bán hàng đến check-in tại cửa hàng bán lẻ,
-hệ thống sẽ lưu lại thông tin về vị trí, thời điểm nhân
-viên bán hàng check-in.
+% \subsubsection{Nhân viên bán hàng check-in}
+% Biểu đồ use case cho ca sử dụng nhân viên bán hàng check-in:
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=14cm]{images/use-case/salesman.jpg}
+% \caption{Use-case nhân viên bán hàng check-in}
+% \end{figure}
+% Khi nhân viên bán hàng đến check-in tại cửa hàng bán lẻ,
+% hệ thống sẽ lưu lại thông tin về vị trí, thời điểm nhân
+% viên bán hàng check-in.
 
 \section{Thiết kế cơ sở dữ liệu}
 Phần này trình bày chi tiết thiết kế các bảng của cơ sở dữ
@@ -236,7 +239,7 @@ và bảng thông tin (Bảng~\ref{tab:dbproduct}).
 \begin{figure}[H]
 \centering
 \includegraphics[width=17cm]{images/database/product.png}
-\caption{Cơ sở dữ liệu quản lý đơn hàng}
+\caption{Cơ sở dữ liệu quản lý sản phẩm}
 \label{fig:dbproduct}
 \end{figure}
 
@@ -275,43 +278,43 @@ weight\_uom &
 \label{tab:dbproduct}
 \end{table}
 
-Nhóm các bảng phục vụ chức năng quản lý tuyến bán hàng
-được trình bày qua sơ đồ thực thể liên kết (Hình~\ref{fig:dbsalesroute})
-và bảng thông tin (Bảng~\ref{tab:dbsalesroute}).
-\begin{figure}[H]
-\centering
-\includegraphics[width=17cm]{images/database/sales-route.png}
-\caption{Cơ sở dữ liệu quản lý tuyến bán hàng}
-\label{fig:dbsalesroute}
-\end{figure}
+% Nhóm các bảng phục vụ chức năng quản lý tuyến bán hàng
+% được trình bày qua sơ đồ thực thể liên kết (Hình~\ref{fig:dbsalesroute})
+% và bảng thông tin (Bảng~\ref{tab:dbsalesroute}).
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=17cm]{images/database/sales-route.png}
+% \caption{Cơ sở dữ liệu quản lý tuyến bán hàng}
+% \label{fig:dbsalesroute}
+% \end{figure}
 
-\begin{table}[H]
-\centering
-\begin{tabular}{| m{6cm} | m{10cm} |}
-\hline
-\textbf{Tên bảng} & \textbf{Thông tin chính được thể hiện} \\
-\hline
-salesman &
-Danh sách thông tin nhân viên bán hàng \\
-\hline
-sales\_route\_planning\_period &
-Danh sách thông tin tuyến bán hàng
-(thời gian bắt đầu – thời gian kết thúc) \\
-\hline
-sales\_route\_config &
-Danh sách thông tin cấu hình tuyến bán hàng
-(thăm cửa hàng vào thứ nào, mấy tuần một lần) \\
-\hline
-sales\_route\_detail &
-Chi tiết tuyến bán hàng \\
-\hline
-salesman\_checkin\_history &
-Thông tin checkin của nhân viên bán hàng  \\
-\hline
-day\_of\_week &
-Danh sách các ngày trong tuần \\
-\hline
-\end{tabular}
-\caption{Thông tin các bảng nhóm quản lý tuyến bán hàng}
-\label{tab:dbsalesroute}
-\end{table}
+% \begin{table}[H]
+% \centering
+% \begin{tabular}{| m{6cm} | m{10cm} |}
+% \hline
+% \textbf{Tên bảng} & \textbf{Thông tin chính được thể hiện} \\
+% \hline
+% salesman &
+% Danh sách thông tin nhân viên bán hàng \\
+% \hline
+% sales\_route\_planning\_period &
+% Danh sách thông tin tuyến bán hàng
+% (thời gian bắt đầu – thời gian kết thúc) \\
+% \hline
+% sales\_route\_config &
+% Danh sách thông tin cấu hình tuyến bán hàng
+% (thăm cửa hàng vào thứ nào, mấy tuần một lần) \\
+% \hline
+% sales\_route\_detail &
+% Chi tiết tuyến bán hàng \\
+% \hline
+% salesman\_checkin\_history &
+% Thông tin checkin của nhân viên bán hàng  \\
+% \hline
+% day\_of\_week &
+% Danh sách các ngày trong tuần \\
+% \hline
+% \end{tabular}
+% \caption{Thông tin các bảng nhóm quản lý tuyến bán hàng}
+% \label{tab:dbsalesroute}
+% \end{table}

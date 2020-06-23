@@ -1,7 +1,8 @@
 \chapter{Thử nghiệm và đánh giá}
 \section{Triển khai chạy thử nghiệm trên cloud}
-Trong đồ án này, em sử dụng Microsoft Azure làm nhà cung cấp dịch vụ
-cloud và sử dụng Azure Kubernetes Service để triển khai các server.
+Trong đồ án này, chúng tôi sử dụng Microsoft Azure làm nhà cung cấp dịch vụ
+cloud và sử dụng Azure Kubernetes Service
+để triển khai các server~\cite{kubeazure}.
 Kiến trúc tổng quan của hệ thống như hình sau:
 \begin{figure}[H]
 \centering
@@ -12,9 +13,9 @@ Trong đó:
 \begin{itemize}[topsep=0ex]
 \item Nginx: sử dụng để làm web server trả về các file tĩnh html và js khi
 ứng dụng được mở lên lần đầu, đồng thời được sử dụng làm Reverse Proxy đến
-Golang Server cho các Rest API.
+Golang Server cho các REST API.
 
-\item Golang Server: web server cho các Rest API từ trình duyệt gửi lên
+\item Golang Server: web server cho các REST API từ trình duyệt gửi lên
 thông qua AJAX.
 
 \item PostgeSQL Server: cơ sử dữ liệu quan hệ của hệ thống.
@@ -22,7 +23,7 @@ thông qua AJAX.
 \item Redis Server: lưu trữ dữ liệu của các phiên làm việc (session).
 \end{itemize}
 
-Còn để triển khai lên AKS, em đã sử dụng những thành phần sau:
+Còn để triển khai lên AKS, chúng tôi đã sử dụng những thành phần sau:
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{images/deploy.png}
@@ -30,7 +31,12 @@ Còn để triển khai lên AKS, em đã sử dụng những thành phần sau:
 \end{figure}
 
 Kết quả sau khi triển khai là hệ thống có thể truy cập được
-từ địa chỉ public IP.
+từ địa chỉ public IP như sau:
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/deployed-website.png}
+\caption{Truy cập ứng dụng từ public IP của AKS}
+\end{figure}
 
 \section{Kiểm thử hiệu năng (performance testing)}
 Dưới đây là kết quả chạy thử nghiệm với số
@@ -38,7 +44,7 @@ lượng gần một triệu bản ghi trong bảng. Do cách mà PostgreSQL
 hoạt động, câu lệnh select count sẽ rất chậm trong bảng kích thước lớn
 do PostgreSQL phải duyệt qua toàn bộ phần tử trong bảng mới
 xác định được số lượng phần tử tương ứng. Vì vậy, trong bài kiểm
-thử hiệu năng này, em sử dụng hai cách để đếm 
+thử hiệu năng này, chúng tôi sử dụng hai cách để đếm 
 số lượng phần tử: sử dụng select count (no aggregation) và 
 sử dụng một biến đếm riêng biệt (aggregated). Đồng thời cũng chia
 các trường hợp có sử dụng hoặc không sử dụng Index.
@@ -49,6 +55,10 @@ PostgreSQL trên máy local sử dụng Intel core i3 3217U còn máy trên
 cloud sử dụng PostgreSQL của Microsoft Azure với 2 core.
 
 \subsection{Kiểm thử hiệu năng cơ sở dữ liệu}
+Với bài kiểm tra hiệu năng cơ sở dữ liệu, chúng tôi sử dụng
+lệnh \textbf{EXPLAIN ANALYZE} để đồng thời lấy được query plan
+của câu truy vấn và lấy được thời gian lập kế hoạch (planning time)
+và thời gian thực thi (execution time) của truy vấn.
 \subsubsection{Truy vấn count}
 \begin{figure}[H]
 \centering
@@ -122,11 +132,16 @@ bảng một triệu phần tử.
 thực thi. Việc không sử dụng index có thể làm cho thời gian một câu lệnh
 select lên đến 1s.
 
-\subsection{Kiểm thử hiệu năng Rest API}
+\subsection{Kiểm thử hiệu năng REST API}
+Với bài kiểm thử hiệu năng REST API cho ứng dụng chạy trên
+Microsoft Azure, ngoài việc sử dụng AKS để chạy các server
+của ứng dụng thì chúng tôi sử dụng thêm một dịch vụ
+khác là Container Instance để chạy các request và đo
+đạc thời gian.
 \begin{figure}[H]
 \centering
 \includegraphics[width=10cm]{images/testing/view-local.png}
-\caption{Hiệu năng Rest API trên máy local (no aggregation)}
+\caption{Hiệu năng REST API trên máy local (no aggregation)}
 \end{figure}
 
 \begin{figure}[H]
@@ -143,13 +158,13 @@ select lên đến 1s.
     {images/testing/view-aggregated-local-log.png}
     \caption{log scale}
 \end{subfigure}
-\caption{Hiệu năng Rest API trên máy local (aggregated)}
+\caption{Hiệu năng REST API trên máy local (aggregated)}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=10cm]{images/testing/view-cloud.png}
-\caption{Hiệu năng Rest API trên máy cloud (no aggregation)}
+\caption{Hiệu năng REST API trên máy cloud (no aggregation)}
 \end{figure}
 
 \begin{figure}[H]
@@ -166,16 +181,16 @@ select lên đến 1s.
     {images/testing/view-aggregated-cloud-log.png}
     \caption{log scale}
 \end{subfigure}
-\caption{Hiệu năng Rest API trên máy cloud (aggregated)}
+\caption{Hiệu năng REST API trên máy cloud (aggregated)}
 \end{figure}
 
 Đánh giá kết quả: Có thể thấy ảnh hưởng của việc sử dụng
-trực tiếp lệnh select count lên tốc độ của Rest API là rất lớn.
-Tốc độ chậm của lệnh select count khiến cho Rest API không thể kết thúc
+trực tiếp lệnh select count lên tốc độ của REST API là rất lớn.
+Tốc độ chậm của lệnh select count khiến cho REST API không thể kết thúc
 dưới 100ms.
 
 \section{Kiểm thử sức chịu tải (stress testing)}
-Với bài toán kiểm thử sức chịu tải, em sẽ cho đồng thời
+Với bài toán kiểm thử sức chịu tải, chúng tôi cho đồng thời
 một số lượng luồng chạy và gửi request lên server và
 tính thời gian hoàn thành. Số lượng luồng tương ứng
 là 1, 10 và 100.
