@@ -28,15 +28,17 @@
 
 \titleformat{\paragraph}
 {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
-% \titlespacing*{\paragraph}
-% {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
+\titlespacing{\chapter}{0pt}{0pt}{\parskip}
 \titlespacing{\paragraph}{0pt}{\parskip}{-\parskip}
 \titlespacing{\section}{0pt}{\parskip}{-\parskip}
 \titlespacing{\subsection}{0pt}{\parskip}{-\parskip}
 \titlespacing{\subsubsection}{0pt}{\parskip}{-\parskip}
 
-\renewcommand*{\lstlistlistingname}{Danh sách câu lệnh}
+\renewcommand{\lstlistingname}{Câu lệnh}
+\renewcommand{\lstlistlistingname}{DANH MỤC CÂU LỆNH}
 
 \graphicspath{ {./images/} }
 \usepackage[X2,T1]{fontenc}
@@ -48,14 +50,15 @@
 
 \DeclareUnicodeCharacter{0190}{\CYREPS}
 \DeclareUnicodeCharacter{025B}{\cyreps}
-\usepackage[left=2cm,right=2cm,top=2cm,bottom=3cm]{geometry}
+% \usepackage[left=2cm,right=2cm,top=2cm,bottom=3cm]{geometry}
+\usepackage[left=3.5cm,right=2.5cm,top=2cm,bottom=3cm]{geometry}
 \usepackage{indentfirst}
 \usepackage{color, colortbl}
 \definecolor{Gray}{gray}{0.9}
 
 \include{thesis.preamble}
 
-\setlength{\parindent}{30pt}
+\setlength{\parindent}{25pt}
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
@@ -127,10 +130,28 @@ captionpos=b
 
 
 \renewcommand{\baselinestretch}{2.0}
-\begin{document}
 
-\title{\LARGE {\bf Nghiên cứu, phân tích, đánh giá, ứng dụng \\
-        các công nghệ mới nhất vào xây dựng \\
+\AtBeginDocument{%
+  \let\mtcontentsname\contentsname
+  \renewcommand\contentsname{\MakeUppercase\mtcontentsname}
+}
+\begin{document}
+\renewcommand{\listfigurename}{DANH MỤC HÌNH VẼ} 
+\renewcommand{\listtablename}{DANH MỤC BẢNG BIỂU} 
+\titleformat{\chapter}[hang] 
+{\centering\normalfont\bfseries}
+{\MakeUppercase{\chaptertitlename\ \thechapter}. }
+{0pt}{\MakeUppercase\normalfont\bfseries} 
+
+\titleformat{\section}
+  {\normalfont\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\bfseries}{\thesubsection}{1em}{}
+
+
+\title{\LARGE {\bf Nghiên cứu, phân tích, đánh giá \\
+        và ứng dụng các công nghệ mới nhất \\
+        vào xây dựng \\
         phân hệ quản lý đơn hàng và xuất kho\\
         trong hệ thống quản lý phân phối}\\
  \vspace*{7mm}
@@ -143,11 +164,15 @@ captionpos=b
 \maketitle
 
 \preface
+\input{dedication}
 \input{acknowledgements}
 \input{abstract}
 
 \body
 % body of thesis comes here
+
+\linespread{1.3}
+\selectfont
 
 \input{chapters/introduction}
 \input{chapters/technology}
@@ -160,6 +185,7 @@ captionpos=b
 % appendices come here
 
 \label{sect:bib}
+\renewcommand\bibname{TÀI LIỆU THAM KHẢO}
 \bibliographystyle{plain}
 \bibliography{thesis}
 %\addcontentsline{toc}{chapter}{Bibliography}

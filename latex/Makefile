@@ -5,6 +5,7 @@ all: thesis.pdf
 thesis.pdf: thesis.bbl 	\
 			icthesis.sty \
 			thesis.tex 	\
+			dedication.tex \
 			abstract.tex \
 			acknowledgements.tex \
 			chapters/introduction.tex \
