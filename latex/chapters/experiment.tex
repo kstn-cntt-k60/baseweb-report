@@ -90,7 +90,7 @@ và thời gian thực thi (execution time) của truy vấn.
 \caption{Truy vấn count trên máy cloud}
 \end{figure}
 
-Đánh giá kết quả: Có thể thấy được rằng với một triệu phần tử thì
+Đánh giá kết quả: Có thể thấy được rằng với gần $1000000$ phần tử thì
 việc sử dụng trực tiếp select count là rất tốn kém, gấp rất nhiều lần
 so với việc sử dụng một biến đếm riêng biệt.
 
@@ -130,7 +130,7 @@ select có sắp xếp được cải thiện hiệu năng hơn rất nhiều v�
 bảng một triệu phần tử.
 Đồng thời việc tăng offset của lệnh select cũng làm tăng dần thời gian
 thực thi. Việc không sử dụng index có thể làm cho thời gian một câu lệnh
-select lên đến 1s.
+select lên đến 1s trên bảng có gần 1000000 phần tử.
 
 \subsection{Kiểm thử hiệu năng REST API}
 Với bài kiểm thử hiệu năng REST API cho ứng dụng chạy trên
@@ -192,7 +192,8 @@ dưới 100ms.
 \section{Kiểm thử sức chịu tải (stress testing)}
 Với bài toán kiểm thử sức chịu tải, chúng tôi cho đồng thời
 một số lượng luồng chạy và gửi request lên server và
-tính thời gian hoàn thành. Số lượng luồng tương ứng
+tính thời gian hoàn thành. Bảng được truy cập tới
+có gần 1000000 bản ghi. Số lượng luồng tương ứng
 là 1, 10 và 100.
 
 \begin{figure}[H]

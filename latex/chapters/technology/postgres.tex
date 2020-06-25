@@ -157,12 +157,14 @@ Có hai loại Index hay được sử dụng cho Full Text Search là GIN và G
 
 \noindent Để Index sử dụng GIN, cú pháp như sau:
 \begin{lstlisting}[caption={Tạo index sử dụng GIN},captionpos=b]
-CREATE INDEX idx_textsearch ON sometable USING GIN (tsvector_column);
+CREATE INDEX idx_textsearch ON sometable
+USING GIN (tsvector_column);
 \end{lstlisting}
 
 \noindent Còn nếu sử dụng GiST:
 \begin{lstlisting}[caption={Tạo index sử dụng GiST},captionpos=b]
-CREATE INDEX idx_textsearch ON sometable USING GIST (tsvector_column);
+CREATE INDEX idx_textsearch ON sometable
+USING GIST (tsvector_column);
 \end{lstlisting}
 
 Khi đó toán tử @@ có thể sử dụng Index để

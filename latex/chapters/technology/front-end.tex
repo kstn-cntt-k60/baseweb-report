@@ -1,8 +1,7 @@
 \subsection{Công nghệ front-end}
 \subsubsection{ReactJS}
 \paragraph{Khái quát về ReactJS}
-
-Ngày nay ReactJS đã trở nên rất phổ biến bởi những tính năng
+Ngày nay ReactJS~\cite{reactjs:online} đã trở nên rất phổ biến bởi những tính năng
 linh hoạt và đơn giản với hơn 1.300.000 developer và hơn 94.000
 trang web đang sử dụng ReactJS
 (theo số liệu thống kê trên blog topdev.vn). 
@@ -27,29 +26,14 @@ cũng lý giải tính tái sử dụng (reuse) và tiện lợi
 trong kiểm thử (testing) của ReactJS.
 
 \paragraph{Virtual DOM}
-Sử dụng ReactJS, ta thường hay nghe tới Virtual DOM,
+Sử dụng ReactJS, ta thường hay nghe tới Virtual DOM~\cite{virtualdom:online},
 DOM thì rất quen thuộc với những lập trình viên front-end,
 còn Virtual DOM là gì? Có khác gì với DOM không? 
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=10cm]{images/DOM.png}
-\caption{Kiến trúc của DOM}
-\label{fig:dom}
-\end{figure}
 
 Trước tiên, DOM là viết tắt của Document Object Model là
 một chuẩn được định nghĩa bởi W3C dùng để truy xuất và thao
 tác trên code HTML bằng các ngôn ngữ lập trình thông dịch
 (scripting language) như JavaScript.
-Trong Hình \ref{fig:dom}
-trên có thể thấy tất cả các thẻ HTML sẽ được quản lý trong
-các đối tượng document, thẻ cao nhất là thẻ html, tiếp đến là
-phân nhánh body và head, trong head có thẻ style, title, … trong body
-chứa các thẻ html. Như vậy thông qua DOM, JavaScript có thể thay
-đổi tất cả các phần tử HTML, các thuộc tính HTML, CSS, loại
-bỏ hoặc thêm các thành phần và thuộc tính HTML mới, tạo ra các sự
-kiện khi tương tác,… Tức là bạn có thể thay đổi cả trang web với DOM.
 
 Khi DOM thay đổi, trình duyệt phải tính toán lại CSS và dựng lại
 trang web, điều này sẽ tốn thời gian, nhất là với những ứng dụng
@@ -59,6 +43,13 @@ DOM sẽ tìm tất cả các node liên quan đến sự kiện và cập nhậ
 thấy nó cần thiết. Vậy thì có cần thiết khi phải tìm tất
 cả các node liên quan không? Hay sẽ hiệu quả hơn khi chỉ tìm
 node nào cần cập nhật.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/DOM.png}
+\caption{Virtual DOM Snapshots \& Diffing}
+\label{fig:virtualdom}
+\end{figure}
 
 Virtual DOM xuất hiện để giải quyết những vấn đề này.
 Virtual DOM gắn với ReactJS, thay vì xử lý DOM Tree thủ công,
@@ -73,14 +64,6 @@ Khi cần cập nhật phần tử giao diện, React sẽ lấy một snapshot 
 DOM (có thể hiểu là bản ghi trạng thái ngay lúc đó),
 sử dụng snapshot này để so sánh với một Virtual DOM trước
 khi thực hiện thay đổi.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=12cm]{images/virtualdom.jpg}
-\caption{Virtual DOM Snapshots \& Diffing}
-\label{fig:virtualdom}
-\end{figure}
-
 \paragraph{Single Page Application (SPA)}
 Với ReactJS, ta dễ dàng tạo ra một Single Page Application (SPA).
 Khác với những ứng dụng web truyền thống, Single Page Application
@@ -95,7 +78,7 @@ Single Page Application load một lần duy nhất ở trang gốc.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=11cm]{images/spa.png}
+\includegraphics[width=\textwidth]{images/single-page-app.png}
 \caption{Single Page Application }
 \label{fig:spa}
 \end{figure}
